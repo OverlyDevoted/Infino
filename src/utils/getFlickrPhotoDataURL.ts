@@ -20,14 +20,20 @@ const getFlickrPhotoDataURLParams = (params: FlickrPhotosSearchParams) => {
 };
 
 export const getFlickrPhotoDataURL = (params: ControlledFlickrPhotosSearchParams) => {
+  const { text, page } = params;
+  if (!text || !page) {
+    throw new Error(
+      "Wrong parameters for Flickr photo data URL. 'text' should not be empty and 'page' should not be 0"
+    );
+  }
   const urlParams = new URLSearchParams(
     getFlickrPhotoDataURLParams({
       api_key: FLICKR_API_KEY,
       format: FLICKR_PHOTO_DATA_FETCH_FORMAT,
       method: FLICKR_PHOTO_DATA_FETCH_METHOD,
       per_page: FLICKR_PHOTO_DATA_FETCH_PER_PAGE,
-      text: params.text,
-      page: params.page,
+      text: params.text.trim(),
+      page: Math.abs(params.page),
     })
   );
   return `${FLICK_REST_URL}?${urlParams.toString()}`;
