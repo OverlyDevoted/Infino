@@ -1,9 +1,7 @@
-import { ControlledFlickrPhotosSearchParams, PhotosData } from '@/types/flickPhotos.types';
-import { getFlickrPhotoDataURL } from '@/utils/getFlickrPhotoDataURL';
 import { useEffect, useRef, useState } from 'react';
 
-export const useFetchPhotoData = ({ page, text }: ControlledFlickrPhotosSearchParams) => {
-  const [photoData, setPhotoData] = useState<PhotosData>();
+export const useFetchData = <T>(url: string) => {
+  const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setIsError] = useState<unknown>();
 
@@ -15,11 +13,10 @@ export const useFetchPhotoData = ({ page, text }: ControlledFlickrPhotosSearchPa
       abortControllerRef.current = new AbortController();
       setIsLoading(true);
       try {
-        const url = getFlickrPhotoDataURL({ page, text });
         const response = await fetch(url, { signal: abortControllerRef.current?.signal });
         if (response.ok) {
           const data = await response.json();
-          setPhotoData(data as PhotosData);
+          setData(data as T);
         }
       } catch (e) {
         setIsError(e);
@@ -29,7 +26,7 @@ export const useFetchPhotoData = ({ page, text }: ControlledFlickrPhotosSearchPa
     };
 
     fetchPhotoData();
-  }, [page, text]);
+  }, [url]);
 
-  return { photoData, isLoading, error };
+  return { data, isLoading, error };
 };

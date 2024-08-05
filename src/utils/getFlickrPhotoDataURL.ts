@@ -1,14 +1,9 @@
 import {
-  FLICK_REST_URL,
+  FLICKR_REST_URL,
   FLICKR_API_KEY,
-  FLICKR_PHOTO_DATA_FETCH_FORMAT,
-  FLICKR_PHOTO_DATA_FETCH_METHOD,
   FLICKR_PHOTO_DATA_FETCH_PER_PAGE,
 } from '@/constants/flickr.constants';
-import {
-  ControlledFlickrPhotosSearchParams,
-  FlickrPhotosSearchParams,
-} from '@/types/flickPhotos.types';
+import { ControlledFlickrPhotosSearchParams, FlickrPhotosSearchParams } from '@/types/flick.types';
 const getFlickrPhotoDataURLParams = (params: FlickrPhotosSearchParams) => {
   const stringParams = {
     ...params,
@@ -29,13 +24,13 @@ export const getFlickrPhotoDataURL = (params: ControlledFlickrPhotosSearchParams
   const urlParams = new URLSearchParams(
     getFlickrPhotoDataURLParams({
       api_key: FLICKR_API_KEY,
-      format: FLICKR_PHOTO_DATA_FETCH_FORMAT,
-      method: FLICKR_PHOTO_DATA_FETCH_METHOD,
+      format: 'json',
+      method: 'flickr.photos.search',
       per_page: FLICKR_PHOTO_DATA_FETCH_PER_PAGE,
       text: params.text.trim(),
       page: Math.abs(params.page),
-      nojsoncallback: 1,
+      nojsoncallback: '1',
     })
   );
-  return `${FLICK_REST_URL}?${urlParams.toString()}`;
+  return `${FLICKR_REST_URL}?${urlParams.toString()}`;
 };

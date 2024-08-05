@@ -1,14 +1,17 @@
 import './App.css';
-import { useFetchPhotoData } from './hooks/useFetchPhotoData';
+import { useFetchData } from './hooks/useFetchData';
+import { PhotosData } from './types/flick.types';
+import { getFlickrPhotoDataURL } from './utils/getFlickrPhotoDataURL';
 import { getFlickrPhotoURL } from './utils/getFlickrPhotoURL';
 
 function App() {
-  const { photoData, isLoading } = useFetchPhotoData({ page: 1, text: 'programming apps' });
+  const { data: photoData, isLoading } = useFetchData<PhotosData>(
+    getFlickrPhotoDataURL({ page: 1, text: 'nature and animals' })
+  );
   if (isLoading) return <>Waiting on data</>;
   return (
     <>
       {photoData?.photos.photo.map((photo) => {
-        console.log({ id: photo.id, secret: photo.secret, serverId: photo.server });
         return (
           <img
             src={getFlickrPhotoURL({ id: photo.id, secret: photo.secret, serverId: photo.server })}
