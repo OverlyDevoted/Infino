@@ -1,5 +1,6 @@
 import './App.css';
 import FlickrImage from './components/FlickrImage/FlickrImage';
+import Loader from './components/Loader/Loader';
 import { useFetchData } from './hooks/useFetchData';
 import { PhotosData } from './types/photo.types';
 import { getFlickrPhotoDataURL } from './utils/getFlickrPhotoDataURL';
@@ -8,7 +9,12 @@ function App() {
   const { data: photoData, isLoading } = useFetchData<PhotosData>(
     getFlickrPhotoDataURL({ page: 1, text: 'nature and animals' })
   );
-  if (isLoading) return <>Waiting on data</>;
+  if (isLoading)
+    return (
+      <>
+        <Loader />
+      </>
+    );
   return (
     <>
       {photoData?.photos.photo.map((photo) => {
