@@ -4,7 +4,7 @@ describe('getFlickrPhotoDataURL', () => {
   it('should return a correctly formatted URL for photo data retrieval from Flickr', () => {
     const url = getFlickrPhotoDataURL({ page: 1, text: 'garden' });
     expect(url).toBe(
-      'https://www.flickr.com/services/rest/?api_key=3018234adaa28f4f4bc702a311869836&format=json&method=flickr.photos.search&per_page=12&text=garden&page=1'
+      'https://www.flickr.com/services/rest/?api_key=3018234adaa28f4f4bc702a311869836&format=json&nojsoncallback=1&method=flickr.photos.search&per_page=12&text=garden&page=1'
     );
   });
 
