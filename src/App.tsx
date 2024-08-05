@@ -1,8 +1,8 @@
 import './App.css';
+import FlickrImage from './components/FlickrImage/FlickrImage';
 import { useFetchData } from './hooks/useFetchData';
 import { PhotosData } from './types/flick.types';
 import { getFlickrPhotoDataURL } from './utils/getFlickrPhotoDataURL';
-import { getFlickrPhotoURL } from './utils/getFlickrPhotoURL';
 
 function App() {
   const { data: photoData, isLoading } = useFetchData<PhotosData>(
@@ -13,8 +13,11 @@ function App() {
     <>
       {photoData?.photos.photo.map((photo) => {
         return (
-          <img
-            src={getFlickrPhotoURL({ id: photo.id, secret: photo.secret, serverId: photo.server })}
+          <FlickrImage
+            key={photo.id}
+            photoId={photo.id}
+            secret={photo.secret}
+            server={photo.server}
           />
         );
       })}
