@@ -18,6 +18,8 @@ function App() {
             photoId={photo.id}
             secret={photo.secret}
             server={photo.server}
+            userId={photo.owner}
+            title={photo.title}
           />
         );
       })}

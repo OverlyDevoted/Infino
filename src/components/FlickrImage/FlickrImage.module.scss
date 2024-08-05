@@ -1,0 +1,18 @@
+@import './../../styles/globals';
+
+$IMAGE_WIDTH: 512px;
+$IMAGE_HEIGHT: 384px;
+
+.img-container {
+  overflow: hidden;
+  width: $IMAGE_WIDTH;
+  height: $IMAGE_HEIGHT;
+  @include elevation-s;
+  @include border_radius-s;
+
+  &__img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
