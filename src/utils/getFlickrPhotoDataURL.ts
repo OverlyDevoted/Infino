@@ -13,6 +13,7 @@ import {
 const getFlickrPhotoDataURLParams = (params: FlickrPhotosSearchParams) => {
   const stringParams = {
     ...params,
+    nojsoncallback: params.nojsoncallback.toString(),
     page: params.page.toString(),
     per_page: params.per_page.toString(),
   };
@@ -34,6 +35,7 @@ export const getFlickrPhotoDataURL = (params: ControlledFlickrPhotosSearchParams
       per_page: FLICKR_PHOTO_DATA_FETCH_PER_PAGE,
       text: params.text.trim(),
       page: Math.abs(params.page),
+      nojsoncallback: 1,
     })
   );
   return `${FLICK_REST_URL}?${urlParams.toString()}`;
