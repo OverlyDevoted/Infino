@@ -1,9 +1,9 @@
-import { ControlledFlickrPhotosSearchParams } from '@/types/flickrSearchParams.types';
+import { ControlledFlickrPhotosSearchParams, PhotosData } from '@/types/flickPhotos.types';
 import { getFlickrPhotoDataURL } from '@/utils/getFlickrPhotoDataURL';
 import { useEffect, useRef, useState } from 'react';
 
 export const useFetchPhotoData = ({ page, text }: ControlledFlickrPhotosSearchParams) => {
-  const [photoData, setPhotoData] = useState<string>();
+  const [photoData, setPhotoData] = useState<PhotosData>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setIsError] = useState<unknown>();
 
@@ -18,9 +18,8 @@ export const useFetchPhotoData = ({ page, text }: ControlledFlickrPhotosSearchPa
         const url = getFlickrPhotoDataURL({ page, text });
         const response = await fetch(url, { signal: abortControllerRef.current?.signal });
         if (response.ok) {
-          const data = await response.text();
-          console.log(data);
-          setPhotoData(data);
+          const data = await response.json();
+          setPhotoData(data as PhotosData);
         }
       } catch (e) {
         setIsError(e);

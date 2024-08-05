@@ -8,8 +8,7 @@ import {
 import {
   ControlledFlickrPhotosSearchParams,
   FlickrPhotosSearchParams,
-} from '@/types/flickrSearchParams.types';
-
+} from '@/types/flickPhotos.types';
 const getFlickrPhotoDataURLParams = (params: FlickrPhotosSearchParams) => {
   const stringParams = {
     ...params,
