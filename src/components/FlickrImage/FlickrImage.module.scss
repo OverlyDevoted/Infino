@@ -4,6 +4,7 @@ $IMAGE_WIDTH: 512px;
 $IMAGE_HEIGHT: 384px;
 
 .img-container {
+  position: relative;
   overflow: hidden;
   width: $IMAGE_WIDTH;
   height: $IMAGE_HEIGHT;
@@ -14,5 +15,21 @@ $IMAGE_HEIGHT: 384px;
     object-fit: cover;
     width: 100%;
     height: 100%;
+  }
+
+  &__info-container {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgb(0, 0, 0, 0.4);
+    transition: 400ms opacity;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }

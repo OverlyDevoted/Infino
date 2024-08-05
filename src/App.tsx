@@ -1,7 +1,7 @@
 import './App.css';
 import FlickrImage from './components/FlickrImage/FlickrImage';
 import { useFetchData } from './hooks/useFetchData';
-import { PhotosData } from './types/flick.types';
+import { PhotosData } from './types/photo.types';
 import { getFlickrPhotoDataURL } from './utils/getFlickrPhotoDataURL';
 
 function App() {

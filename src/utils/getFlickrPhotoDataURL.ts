@@ -3,7 +3,7 @@ import {
   FLICKR_API_KEY,
   FLICKR_PHOTO_DATA_FETCH_PER_PAGE,
 } from '@/constants/flickr.constants';
-import { ControlledFlickrPhotosSearchParams, FlickrPhotosSearchParams } from '@/types/flick.types';
+import { ControlledFlickrPhotosSearchParams, FlickrPhotosSearchParams } from '@/types/flickr.types';
 const getFlickrPhotoDataURLParams = (params: FlickrPhotosSearchParams) => {
   const stringParams = {
     ...params,
