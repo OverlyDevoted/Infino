@@ -1,35 +1,45 @@
-import './App.css';
-import FlickrImage from './components/FlickrImage/FlickrImage';
+import './App.scss';
 import Loader from './components/Loader/Loader';
 import { useFetchData } from './hooks/useFetchData';
-import { PhotosData } from './types/photo.types';
+import { Photo, PhotosData } from './types/photo.types';
 import { getFlickrPhotoDataURL } from './utils/getFlickrPhotoDataURL';
+import { useScrollBottom } from './hooks/useScrollBottom';
+import { useEffect, useState } from 'react';
+import FlickrImage from './components/FlickrImage/FlickrImage';
 
 function App() {
-  const { data: photoData, isLoading } = useFetchData<PhotosData>(
-    getFlickrPhotoDataURL({ page: 1, text: 'nature and animals' })
+  const [page, setPage] = useState(1);
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const { data: currentPagePhotos, isLoading } = useFetchData<PhotosData>(
+    getFlickrPhotoDataURL({ page, text: 'nature and animals' })
   );
-  if (isLoading)
-    return (
-      <>
-        <Loader />
-      </>
-    );
+
+  useScrollBottom(() => {
+    if (currentPagePhotos) setPage((prev) => prev + 1);
+  });
+
+  useEffect(() => {
+    if (currentPagePhotos) setPhotos((prev) => [...prev, ...currentPagePhotos.photos.photo]);
+  }, [currentPagePhotos]);
+
   return (
-    <>
-      {photoData?.photos.photo.map((photo) => {
-        return (
-          <FlickrImage
-            key={photo.id}
-            photoId={photo.id}
-            secret={photo.secret}
-            server={photo.server}
-            userId={photo.owner}
-            title={photo.title}
-          />
-        );
-      })}
-    </>
+    <main className="main">
+      <div className="main__image-container">
+        {photos.map((photo) => {
+          return (
+            <FlickrImage
+              photoId={photo.id}
+              secret={photo.secret}
+              server={photo.server}
+              title={photo.title}
+              userId={photo.owner}
+              key={photo.id}
+            />
+          );
+        })}
+      </div>
+      <div className="main__loader">{<Loader disabled={isLoading} />}</div>
+    </main>
   );
 }
 

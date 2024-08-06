@@ -1,6 +1,6 @@
 import { getFlickrPhotoURL } from '@/utils/getFlickrPhotoURL';
 import { getFlickrProfileDataURL } from '@/utils/getFlickrProfileDataURL';
-import styles from './FlickrImage.module.scss';
+import './FlickrImage.scss';
 import { useFetchData } from '@/hooks/useFetchData';
 import { UserData } from '@/types/user.types';
 import Button from '../Button/Button';
@@ -16,17 +16,18 @@ interface FlickrImageProps {
 const FlickrImage = ({ photoId, secret, server, userId, title }: FlickrImageProps) => {
   const { data: userData } = useFetchData<UserData>(getFlickrProfileDataURL({ user_id: userId }));
 
+  const userIdentificationText = userData ? userData.person.username._content : 'Loading';
+
   return (
-    <div className={styles['img-container']}>
+    <div className="img-container">
       <img
-        className={styles['img-container__img']}
         loading="lazy"
+        className="img-container__img"
         src={getFlickrPhotoURL({ id: photoId, secret: secret, serverId: server })}
         alt={title}
       />
-      <div className={styles['img-container__info-container']}>
-        <h2
-          className={styles['img-container__author']}>{`${userData?.person.realname._content}`}</h2>
+      <div className="img-container__info-container">
+        <h2 className="img-container__author">{`${userIdentificationText}`}</h2>
         <p>{title}</p>
         <Button
           onClick={() => {

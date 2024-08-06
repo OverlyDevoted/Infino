@@ -1,0 +1,17 @@
+.main {
+  &__image-container {
+    display: grid;
+    width: fit-content;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+    padding: 2rem;
+    justify-items: center;
+  }
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+}
