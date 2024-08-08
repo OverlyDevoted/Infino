@@ -1,0 +1,12 @@
+@mixin skeletal_loading_background {
+  animation: skeletal_pulse 1s alternate-reverse ease-in-out infinite;
+}
+
+@keyframes skeletal_pulse {
+  from {
+    background-color: rgb(236, 236, 236);
+  }
+  to {
+    background-color: rgb(206, 206, 206);
+  }
+}

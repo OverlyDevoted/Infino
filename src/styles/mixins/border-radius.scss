@@ -1,3 +1,7 @@
 @mixin border_radius-s {
   border-radius: 0.25rem;
 }
+
+@mixin border_radius-2xl {
+  border-radius: 1.25rem;
+}

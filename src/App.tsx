@@ -4,7 +4,7 @@ import { useFetchData } from './hooks/useFetchData';
 import { Photo, PhotosData } from './types/photo.types';
 import { getFlickrPhotoDataURL } from './utils/getFlickrPhotoDataURL';
 import { useScrollBottom } from './hooks/useScrollBottom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import FlickrImage from './components/FlickrImage/FlickrImage';
 
 function App() {
@@ -14,9 +14,11 @@ function App() {
     getFlickrPhotoDataURL({ page, text: 'nature and animals' })
   );
 
-  useScrollBottom(() => {
+  const handleReachBottom = useCallback(() => {
     if (currentPagePhotos) setPage((prev) => prev + 1);
-  });
+  }, [currentPagePhotos]);
+
+  useScrollBottom(handleReachBottom);
 
   useEffect(() => {
     if (currentPagePhotos) setPhotos((prev) => [...prev, ...currentPagePhotos.photos.photo]);
