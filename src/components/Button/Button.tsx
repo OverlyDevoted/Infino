@@ -1,4 +1,4 @@
-import React from 'react';
+import './Button.scss';
 
 interface ButtonProps {
   title: string;
@@ -6,7 +6,11 @@ interface ButtonProps {
 }
 
 const Button = ({ onClick, title }: ButtonProps) => {
-  return <button onClick={onClick}>{title}</button>;
+  return (
+    <button className="btn" onClick={onClick}>
+      {title}
+    </button>
+  );
 };
 
 export default Button;

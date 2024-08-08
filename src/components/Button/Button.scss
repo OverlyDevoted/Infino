@@ -1,0 +1,17 @@
+@import './../../styles/globals.scss';
+
+.btn {
+  font-size: 1em;
+  background-color: transparent;
+  color: white;
+  border: solid 1px white;
+  padding: 0.4rem 1rem;
+
+  @include border_radius-2xl;
+
+  &:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+  }
+}
