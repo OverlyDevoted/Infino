@@ -4,28 +4,26 @@ import './FlickrImage.scss';
 import { useFetchData } from '@/hooks/useFetchData';
 import { UserData } from '@/types/user.types';
 import Button from '../Button/Button';
-import { useEffect, useRef, useState } from 'react';
-
-interface FlickrImageProps {
-  photoId: string;
-  secret: string;
-  server: string;
-  userId: string;
-  title: string;
-}
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { FlickrImageProps } from './FlickrImage.types';
+import { useFavoritePhotoContext } from '@/hooks/useFavoritePhotoContext';
 
 const FlickrImage = ({ photoId, secret, server, userId, title }: FlickrImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { favoritePhotos, modifyFavoritePhotos } = useFavoritePhotoContext();
   const imgRef = useRef<HTMLImageElement>(null);
   const { data: userData } = useFetchData<UserData>(getFlickrProfileDataURL({ user_id: userId }));
-
-  const userIdentificationText = userData ? userData.person.username._content : 'Loading';
 
   useEffect(() => {
     imgRef.current?.addEventListener('load', () => {
       setIsLoaded(true);
     });
   }, []);
+
+  const userIdentificationText = userData ? userData.person.username._content : 'Loading';
+  const isFavored = useMemo(() => {
+    return favoritePhotos.some((photo) => photo.photoId === photoId);
+  }, [favoritePhotos, photoId]);
 
   return (
     <div className={`img-container${isLoaded ? ' img-container--loaded' : ''}`}>
@@ -43,9 +41,13 @@ const FlickrImage = ({ photoId, secret, server, userId, title }: FlickrImageProp
         <div className="img-container__fav-btn">
           <Button
             onClick={() => {
-              console.log('add to favorites');
+              modifyFavoritePhotos({
+                type: isFavored ? 'remove' : 'add',
+                photo: { photoId, secret, server, title, userId },
+              });
             }}
             title="Favorite"
+            isActive={isFavored}
           />
         </div>
       </div>
