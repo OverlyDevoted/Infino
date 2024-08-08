@@ -20,7 +20,12 @@ const FlickrImage = ({ photoId, secret, server, userId, title }: FlickrImageProp
     });
   }, []);
 
-  const userIdentificationText = userData ? userData.person.username._content : 'Loading';
+  const authorName = useMemo(() => {
+    if (!userData) return 'Loading';
+    if (userData.person.realname) return userData.person.realname._content;
+    return userData.person.username._content;
+  }, [userData]);
+
   const isFavored = useMemo(() => {
     return favoritePhotos.some((photo) => photo.photoId === photoId);
   }, [favoritePhotos, photoId]);
@@ -35,9 +40,9 @@ const FlickrImage = ({ photoId, secret, server, userId, title }: FlickrImageProp
         alt={title}
       />
       <div className="img-container__info-container">
-        <h2 className="img-container__author">{`${userIdentificationText}`}</h2>
+        <h2 className="img-container__title">{title}</h2>
         <div className="img-container__divider" />
-        <p className="img-container__title">{title}</p>
+        <p className="img-container__author">{`${authorName}`}</p>
         <div className="img-container__fav-btn">
           <Button
             onClick={() => {

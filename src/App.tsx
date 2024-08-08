@@ -10,6 +10,7 @@ import FlickrImage from './components/FlickrImage/FlickrImage';
 function App() {
   const [page, setPage] = useState(1);
   const [photos, setPhotos] = useState<Photo[]>([]);
+
   const { data: currentPagePhotos, isLoading } = useFetchData<PhotosData>(
     getFlickrPhotoDataURL({ page, text: 'nature and animals' })
   );
@@ -21,7 +22,10 @@ function App() {
   useScrollBottom(handleReachBottom);
 
   useEffect(() => {
-    if (currentPagePhotos) setPhotos((prev) => [...prev, ...currentPagePhotos.photos.photo]);
+    if (currentPagePhotos)
+      setPhotos((prev) => {
+        return [...prev, ...currentPagePhotos.photos.photo];
+      });
   }, [currentPagePhotos]);
 
   return (
