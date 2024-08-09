@@ -29,7 +29,7 @@
     z-index: -1;
     scale: 2;
     opacity: 0;
-
+    pointer-events: none;
     transition: all 300ms;
     @include border_radius-2xl;
   }

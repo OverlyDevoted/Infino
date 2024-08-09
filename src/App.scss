@@ -1,3 +1,5 @@
+@import './styles/globals.scss';
+
 .main {
   &__image-container {
     display: grid;
@@ -8,10 +10,25 @@
     padding: 2rem;
     justify-items: center;
   }
+
   &__loader {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
+  }
+
+  @media screen and (max-width: $DESKTOP_BREAKPOINT) {
+    &__image-container {
+      background-color: red;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: $TABLET_BREAKPOINT) {
+    &__image-container {
+      grid-template-columns: repeat(1, 1fr);
+      background-color: green;
+    }
   }
 }
