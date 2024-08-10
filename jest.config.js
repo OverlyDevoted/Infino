@@ -1,7 +1,11 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 export default {
   testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFiles: ['./jest.polyfills.js'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
