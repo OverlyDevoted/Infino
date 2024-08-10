@@ -16,6 +16,8 @@
       "@utils/*": ["./src/utils/*"],
       "@hooks/*": ["./src/types/*"],
       "@styles/*": ["./src/styles/*"],
-    }
+    },
+    "jsx": "react-jsx",
+
   }
 }

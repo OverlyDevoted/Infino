@@ -1,9 +1,11 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 export default {
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   transform: {
-    '^.+.tsx?$': ['ts-jest', {}],
+    '^.+\\.tsx?$': 'ts-jest',
   },
+  moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
@@ -11,5 +13,6 @@ export default {
     '^@assets/(.*)$': '<rootDir>/src/assets/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@styles/(.*)$': '<rootDir>/src/styles/$1',
+    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
   },
 };
