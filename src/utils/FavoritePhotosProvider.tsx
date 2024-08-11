@@ -11,7 +11,7 @@ const modifyFavoritePhotos = (payload: FavoritePhotoAction) => {
   const { photo, type } = payload;
   switch (type) {
     case 'add': {
-      if (storageFavoritePhotos.some((storedPhoto) => storedPhoto.photoId === photo.photoId)) break;
+      if (storageFavoritePhotos.some((storedPhoto) => storedPhoto.id === photo.id)) break;
       storageFavoritePhotos.push(photo);
       localStorage.setItem(
         FAVORITE_PHOTOS_LOCAL_STORAGE_KEY,
@@ -22,7 +22,7 @@ const modifyFavoritePhotos = (payload: FavoritePhotoAction) => {
     }
     case 'remove': {
       const filteredState = storageFavoritePhotos.filter(
-        (storedPhoto) => storedPhoto.photoId !== photo.photoId
+        (storedPhoto) => storedPhoto.id !== photo.id
       );
       localStorage.setItem(FAVORITE_PHOTOS_LOCAL_STORAGE_UPDATE, JSON.stringify(filteredState));
       window.dispatchEvent(new Event(FAVORITE_PHOTOS_LOCAL_STORAGE_UPDATE));

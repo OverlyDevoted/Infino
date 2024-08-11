@@ -27,7 +27,7 @@ const FlickrImage = ({ photoId, secret, server, userId, title }: FlickrImageProp
   }, [userData]);
 
   const isFavored = useMemo(() => {
-    return favoritePhotos.some((photo) => photo.photoId === photoId);
+    return favoritePhotos.some((photo) => photo.id === photoId);
   }, [favoritePhotos, photoId]);
 
   return (
@@ -48,7 +48,7 @@ const FlickrImage = ({ photoId, secret, server, userId, title }: FlickrImageProp
             onClick={() => {
               modifyFavoritePhotos({
                 type: isFavored ? 'remove' : 'add',
-                photo: { photoId, secret, server, title, userId },
+                photo: { id: photoId, secret, server, title, owner: userId },
               });
             }}
             title="Favorite"

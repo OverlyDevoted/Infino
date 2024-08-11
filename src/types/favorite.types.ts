@@ -1,8 +1,8 @@
 export interface FavoritePhoto {
-  photoId: string;
+  id: string;
   secret: string;
   server: string;
-  userId: string;
+  owner: string;
   title: string;
 }
 
